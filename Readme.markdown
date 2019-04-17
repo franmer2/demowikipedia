@@ -684,13 +684,13 @@ You should see a new activity in your pipeline:
 
 The screenshot below show how to create the '**Get Metadata**'activity.
 
-Add the "Exists" argument. It will be tested by another activity
+Add the "**Exists**" argument. It will be tested by another activity
 
 ![sparkles](pictures/image101.jpg)
 
 ## "If Condition" activity
 
-Drag and drop the "If Condition" activity from the left menu to the pipeline. Add a link between the "**Get Metadata**" activity with the "**If Condition**" activity.
+Drag and drop the "**If Condition**" activity from the left menu to the pipeline. Add a link between the "**Get Metadata**" activity with the "**If Condition**" activity.
 
 
 Click on the "**If Condition**" activity. In "**settings**" tab, clic on "**Add dynamic content**"
@@ -721,7 +721,8 @@ The "**Delete**" activity is copied to your "**If condition**" activity.
 
 ![sparkles](pictures/image107.png)
 
-Click on the "**Pipeline1**" (or another name if you renamed your pipeline) link to return to the top level of your pipeline.
+Click on the "**Pipeline1**" (or another name if you renamed your pipeline) link to return to the top level of your pipeline and remove the "Delete1" activity.
+
 
 ![sparkles](pictures/image108.jpg)
 
@@ -729,7 +730,7 @@ Click on the "**Pipeline1**" (or another name if you renamed your pipeline) link
 
 We will now create a loop to download the files corresponding to the number of hours that we want to recover. This number will be defined via the parameters.
 
-From the list of activities, on the left, drag and drop the activity "**ForEach**" in the editor. Then link the "**Delete**" activity to the "**ForEach**" activity.
+From the list of activities, on the left, drag and drop the activity "**ForEach**" in the editor. Then link the "**If condition**" activity to the "**ForEach**" activity.
 
 ![sparkles](pictures/image109.jpg)
 
@@ -755,7 +756,14 @@ Double click on the activity "**ForEach**", to add activities inside the loopAdd
 
 Click on "**Source**" and select the Dataset "**Logs_Wikipedia**". Pass the settings as shown in the screenshot below.
 
-Concerning the hours, parameter comes actually from the activity "**ForEach**".
+- **YearDS**  : @pipeline().parameters.Year
+- **MonthDS** : @pipeline().parameters.Month
+- **DaysDS**  : @pipeline().parameters.Day
+- **HourDS**  : @item()
+
+
+
+(Concerning the hours, parameter comes actually from the activity "**ForEach**").
 
 ![sparkles](pictures/image114.jpg)
 
