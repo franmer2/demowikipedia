@@ -1079,7 +1079,7 @@ In your storage account, add your "Service Principal" account with the role "**S
 
 ![sparkles](pictures/image159.jpg)
 
-For the moment (April 2019), it is not possible to create a container in a Data Lake Gen2 type account with the ARM models. It is therefore necessary to do it manually. It can be done for example via "Azure Storage Explorer" or the Azure portal. Below is an illustration with the Azure portal.
+For the moment (April 2019), it is not possible to create a container in a Data Lake Gen2 type account with the ARM models. It is therefore necessary to do it manually. It can be done for example via "**Azure Storage Explorer**" or the **Azure portal**. Below is an illustration with the Azure portal.
 
 ![sparkles](pictures/image160.jpg)
 
