@@ -962,7 +962,7 @@ Another way to deploy ARM models is to use Azure CLI. Below is an example of dep
  
     deploymentName='<Your Deployment Name>'
     az group deployment create -g $resourceGroup -n $deploymentName \
-    --template-uri 'https://raw.githubusercontent.com/franmer2/demowikipedia/master/1_Wikipedia_General_ARM_template.json' \
+    --template-uri 'https://raw.githubusercontent.com/franmer2/demowikipedia/master/resources/1_Wikipedia_General_ARM_template.json' \
     --parameters location=$location \
     databricksWorkspaceName='<Your Azure Databricks Workspace Name>' \
     databricksTier='premium' \
@@ -1095,9 +1095,8 @@ With Visual Studio Code, modify your ARM model to facilitate deployment in a new
             "AzureDataLakeStorageGen2_properties_typeProperties_url": "[concat('https://',parameters('AzureDataLakeStorageGen2_Name') ,'.dfs.core.windows.net')]"
 
 
-The ARM model that I use is available here: https://github.com/franmer2/demowikipedia/blob/master/2_Wikipedia_ADF_ARM_template.json
+The ARM model that I use is available here: https://github.com/franmer2/demowikipedia/blob/master/resources/2_Wikipedia_ADF_ARM_template.json
 
-or on my github : https://github.com/franmer2/demowikipedia
 
 
 ## Deploy the ARM pipeline creation model
@@ -1126,8 +1125,8 @@ Use the script below in the Azure Cloud Shell
     ADFdeploymentName='<YOUR DEPLOYMENT NAME>'
 
     az group deployment create -g $resourceGroup -n $ADFdeploymentName \
-    --template-uri 'https://raw.githubusercontent.com/franmer2/demowikipedia/master/2_Wikipedia_ADF_ARM_template.json' \
-    --parameters 'https://raw.githubusercontent.com/franmer2/demowikipedia/master/2_Wikipedia_ADF_ARM_template.parameters.json' \
+    --template-uri 'https://raw.githubusercontent.com/franmer2/demowikipedia/master/resources/2_Wikipedia_ADF_ARM_template.json' \
+    --parameters 'https://github.com/franmer2/demowikipedia/blob/master/resources/2_Wikipedia_ADF_ARM_template.parameters.json' \
     --parameters AzureDataLakeStorageGen2_properties_typeProperties_servicePrincipalId='<Your Service Principal ID>' \
     factoryName='<YOUR AZURE DATA FACTORY NAME>' \
     AzureKeyVault_Name='<YOUR AZURE KEY VAULT NAME>' \
@@ -1164,7 +1163,7 @@ Log in to your SQL Database located in the new environment. Click on "**Query ed
 
 ## Editing the Power BI Report
 
-If you use the Power BI file available on the [GitHub](https://github.com/franmer2/demowikipedia), you need to modify the connection string to retrieve the data directly from your SQL Database.Click on "**Edit Queries**" and then on "**Data Source Settings**":
+If you use the Power BI file available on the [GitHub](https://github.com/franmer2/demowikipedia) (resources folder), you need to modify the connection string to retrieve the data directly from your SQL Database.Click on "**Edit Queries**" and then on "**Data Source Settings**":
 
 ![sparkles](pictures/image171.jpg)
 
