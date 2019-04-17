@@ -877,7 +877,7 @@ This preparation and deployment will be done following the steps below:
 - Creating an ARM Model to Deploy the Azure Data Factory Pipeline in the New Environment
 - Deployment of the pipeline via the ARM model
 
-At first I planned to do this exercise with the "Template" service of the Azure portal, but by talking with David Chapdelaine, TSP Azure, he also recommended me to watch the Azure CLI track, which I also did 😊 . Therefore, I will illustrate these 2 approaches in the rest of this article. ARM models are available here: https://github.com/franmer2/demowikipedia
+At first I planned to do this exercise with the "Template" service of the Azure portal, but by talking with [David Chapdelaine](https://www.linkedin.com/in/dchapdelaine/), TSP Azure, he also recommended me to watch the Azure CLI track, which I also did 😊 . Therefore, I will illustrate these 2 approaches in the rest of this article. ARM models are available here: https://github.com/franmer2/demowikipedia
 
 
 ## Using the "Template" service of the Azure portal
