@@ -9,7 +9,7 @@ I will go through the topic of DataOps quickly, and present how the Azure servic
 One of the goals of DataOps is to have a quality value production pipeline, while still being able to inject modifications and continuous innovation without interrupting this pipeline.
 In each of the environments (development, tests, ...), you have to be able to test your ideas to implement innovation, create several test branches, and merge them to get them to production as quickly as possible. The illustration below proposes, for a given environment, a sequence of the different stages of production of value while allowing the infusion of ideas and innovations without interrupting this sequence.
 
-![sparkles](image001.png)
+![sparkles](pictures/image001.png)
 
 These sequences must be able to be performed in a development environment, but also in other environments such as testing or production. It is therefore necessary to be able to move as easily as possible from one environment to another.
 
@@ -30,7 +30,7 @@ This is my [Wikipedia logs analysis](https://franmerms.wordpress.com/2014/12/04/
 
 To build our solution, we will use several services of our data platform
 
-![sparkles](image002.png)
+![sparkles](pictures/image002.png)
 
 - Azure Data Lake Gen 2, for storage
 - Azure Data Factory, for orchestrating the production pipeline
@@ -47,12 +47,12 @@ Before we begin, let's do a quick focus on Azure Data Factory and Azure Databrik
 ### Azure Data Factory v2
 Azure Data Factory v2 is a fully managed cloud service that enables the orchestration of data movement and transformation processes. Completely integrated with Azure, It allows during the data movements, to invoke other services, such as Azure Databricks or Logic App, to transform and enrich your data. Azure Data Factory v2 also integrates with Azure Devops for integration and continuous development. In addition, with the ability to transform pipelines into ARM models, it is very easy to deploy them in other environments.
 
-![sparkles](image003.png)
+![sparkles](pictures/image003.png)
 
 ### Azure Databricks
 Based on Spark, Azure Databricks is a workspace that allows collaboration between the company's stakeholders to bring innovation through continuous experimentation. Being integrated with Azure DevOps, Azure Databricks enters completely into a CI / CD process as illustrated in [Benjamin Leroux's post](https://thedataguy.blog/ci-cd-with-databricks-and-azure-devops/). Azure Databricks allows the collaboration around Notebooks, which support several languages such as Python, Scala, SQL, ..., and allows the execution of these notebooks both manual and automatic, via "jobs", orchestrated by Azure Data Factory
 
-![sparkles](image004.png)
+![sparkles](pictures/image004.png)
 
 The notebook used for this example will do the following:
 - Read files deposited by Azure Data Factory into the data lake (Azure Data Lake Storage Gen2)
@@ -65,14 +65,14 @@ The notebook used for this example is available [here](https://1drv.ms/u/s!Am-C-
 ### Few words about the data lake
 In modern data platform architecture solutions, it is important to separate storage space from data processing engines. This is exactly what we will do in this example. For this article, we will therefore develop our data lake in several zones, in order to preserve the state of the data according to the transformations that they will have undergone. Storage space is no longer a problem today, we will create multiple areas in our data lake as shown in the illustration below
 
-![sparkles](image005.png)
+![sparkles](pictures/image005.png)
 
 Even if finally we will use only 2 persistent zones in our data lake for this example (and 1 temporary), the idea is to have several zones in order to preserve all the states of our data, of the raw state in the most refined one.
 
 ### Demonstration architecture
 At the end of this article we will have realized the following architecture. You will notice the separation of the storage of the calculation engine
 
-![sparkles](image006.png)
+![sparkles](pictures/image006.png)
 
 ### Prerequisites
 - [An Azure subscription](https://azure.microsoft.com/en-us/free/search/?&OCID=AID719803_SEM_sHsHEIyy&lnkd=Bing_Azure_Brand&dclid=CKu35_-GyOACFYRNDAodhEkA3A)
@@ -87,69 +87,69 @@ The resource group is a logical grouping of Azure services. For this article, we
 
 From the [Azure portal](https://portal.azure.com/), on the left, click on "**Resource groups**" then on the "**Add**" button.
 
-![sparkles](image007.jpg)
+![sparkles](pictures/image007.jpg)
 
 Complete the creation form and click on "**Review + Create**". For this article, we will name the resource group "**Paisley-Park**".
 
-![sparkles](image008.jpg)
+![sparkles](pictures/image008.jpg)
 
 ## Creation of the data lake
 In the previously created resource group, we will add a storage service. For this example we will choose the new service "**Data Lake Store Gen 2**".
 
 From the Azure portal, click on "**Create a resource**", "**Storage**" and then "**Storage account**"
 
-![sparkles](image009.jpg)
+![sparkles](pictures/image009.jpg)
 
 Then fill out the creation form. Here, I decide to create my data lake in the "P**aisley-Park**" resource group.For this article, I will name my data lake "thevaultgen2"
 
-![sparkles](image010.png)
+![sparkles](pictures/image010.png)
 
 Then click on the "**Advanced**" tab, then in the "**Data Lake Storage gen2**" section, click on "**Enabled**". This will enable new features related to the new version of our data lake.
 
-![sparkles](image011.jpg)
+![sparkles](pictures/image011.jpg)
 
 If necessary you can add tags by clicking on the tab "Tags". Tags are useful for administering and tracking the costs of your Azure services.
 
 When done, click on the "**Review + create**" button
 
-![sparkles](image012.jpg)
+![sparkles](pictures/image012.jpg)
 
 Then on the "**Create**" button
 
-![sparkles](image013.jpg)
+![sparkles](pictures/image013.jpg)
 
 ## Creating the SQL Database Database
 
 From the Azure portal, click on "**Create a resource**", "**Database**", then "**SQL Database**"
 
-![sparkles](image014.jpg)
+![sparkles](pictures/image014.jpg)
 
 Fill out the database creation form and click on "**Review + Create**". For this article, I will call the database "**Musicology**", and I will keep the level of Tier to basic. Nothing will prevent us subsequently to change this level of performance according to the needs (principle of elasticity).
 
-![sparkles](image015.jpg)
+![sparkles](pictures/image015.jpg)
 
 On the "**Create + Review**" page, click on the "Create" button
 
-![sparkles](image016.jpg)
+![sparkles](pictures/image016.jpg)
 
 Once the database is created, consider setting up the "firewall" in case you want to use SQL Server Management Studio from a remote desktop.
 
-![sparkles](image017.jpg)
+![sparkles](pictures/image017.jpg)
 
 ## Azure Data Factory Service Creation
 From the portal, click on "**Create a resource**", "**Integration**" and then "**Data Factory**"
 
-![sparkles](image018.jpg)
+![sparkles](pictures/image018.jpg)
 
 Fill out the creation form and click on the "**Create**" button
 
-![sparkles](image019.jpg)
+![sparkles](pictures/image019.jpg)
 
 
 ## Creation of the Azure Databricks service
 From the Azure portal, click "**Create a resource**", "**Analytics**" and "**Azure Databricks**"
 
-![sparkles](image020.jpg)
+![sparkles](pictures/image020.jpg)
 
 Fill out the creation form. We will take the premium tier for integration with Azure Key Vault.This is especially recommended in the [Databricks documentation](https://docs.azuredatabricks.net/user-guide/secrets/secret-scopes.html):
 
@@ -158,26 +158,26 @@ Fill out the creation form. We will take the premium tier for integration with A
 For this article, I will name my Azure Databricks "**CrystalBall**" workspace.Click on the "**Create**" button
 
 
-![sparkles](image021.jpg)
+![sparkles](pictures/image021.jpg)
 
 ## Creating an Azure Key Vault
 
 From the Azure portal, click on "**Create a resource**", then in the search bar enter "**Key Vault"**
 
-![sparkles](image022.jpg)
+![sparkles](pictures/image022.jpg)
 
 Choose "**Key Vault**" from the Marketplace and click on the "**Create**" button.
 
-![sparkles](image023.jpg)
+![sparkles](pictures/image023.jpg)
 
 Fill out the creation form and click on the "**Create**" button
 
-![sparkles](image024.jpg)
+![sparkles](pictures/image024.jpg)
 
 
 If you have placed all your resources in the same resource group, you must obtain a result like the one in the screenshot below:
 
-![sparkles](image025.png)
+![sparkles](pictures/image025.png)
 
 ##Creation of an application and a service principal
 
@@ -187,45 +187,45 @@ In our Azure Active Directory, we will create and register an application.
 
 From the Azure portal, click on "**Azure Active Directory**" and then on "**App registration (preview)**".
 
-![sparkles](image026.jpg)
+![sparkles](pictures/image026.jpg)
 
 Click on the "**New registration**" button
 
-![sparkles](image027.jpg)
+![sparkles](pictures/image027.jpg)
 
 Fill out the registration form and click on the "**register**" button
 
-![sparkles](image028.jpg)
+![sparkles](pictures/image028.jpg)
 
 The application is now created. You must have a screen identical to the one below.
 
 **WARNING!!! ** Note the information of your "Application (client) ID" as well as your "Directory (tenant) ID" (which I have hidden in my screenshot). You will need it later.
 
-![sparkles](image029.jpg)
+![sparkles](pictures/image029.jpg)
 
 Click on "**Certificates & Secrets**" and then on "**New Secret Client**". This "secret ID" is also called "authentication-id" or "secret client"
 
-![sparkles](image030.jpg)
+![sparkles](pictures/image030.jpg)
 
 Fill out the creation form and click on the "**Add**" button
 
-![sparkles](image031.jpg)
+![sparkles](pictures/image031.jpg)
 
 Copy the previously generated secret by clicking on the copy icon
 
-![sparkles](image032.jpg)
+![sparkles](pictures/image032.jpg)
 
 Return to your resource group and select your storage account
 
-![sparkles](image033.jpg)
+![sparkles](pictures/image033.jpg)
 
 Then click on "**Access Control (IAM)**"
 
-![sparkles](image034.jpg)
+![sparkles](pictures/image034.jpg)
 
 In the "**Add a role assignment**" box, click on the "**Add**" button
 
-![sparkles](image035.jpg)
+![sparkles](pictures/image035.jpg)
 
 In the "**Add role assignment**" window, select the following items:
 - **Role**: Storage Blob Data Contributor
@@ -233,7 +233,7 @@ In the "**Add role assignment**" window, select the following items:
   
 Then click on the "**Save**" button
 
-![sparkles](image036.jpg)
+![sparkles](pictures/image036.jpg)
 
 ## Setting the Azure Key Vault
 In order for Azure Databricks to have access to Data Lake Gen2, we will need the following information:
@@ -246,23 +246,23 @@ It is possible that some of this information must not appear in clear text in th
 For this example we will store only the different IDs.
 
 Click on your Azure Key Vault:
-![sparkles](image037.jpg)
+![sparkles](pictures/image037.jpg)
 
 
 Click on "**Secrets**" then on the "**Generate / Import**" button
 
-![sparkles](image038.jpg)
+![sparkles](pictures/image038.jpg)
 
 We will create the secrets for our 3 IDs. Below an example for "**application-id**". 
 
 Click on the "**Create**" button.
 Repeat the following steps for the other 2 IDs.
 
-![sparkles](image039.jpg)
+![sparkles](pictures/image039.jpg)
 
 After creating your 3 secrets, you must have a result like the screenshot below:
 
-![sparkles](image040.png)
+![sparkles](pictures/image040.png)
 
 A little further down in this article, we'll add a secret for the integration between Azure Data Factory and Azure Databricks
 
@@ -274,23 +274,23 @@ We will now configure Azure Databricks so that it can use the secrets set in Azu
 
 Return to your resource group and click on your Azure Databricks service:
 
-![sparkles](image041.jpg)
+![sparkles](pictures/image041.jpg)
 
 
 Click on the button "**Launch Workspace**"
 
-![sparkles](image042.jpg)
+![sparkles](pictures/image042.jpg)
 
 Once in your workspace, note the URL of your Azure Databricks:
 
-![sparkles](image043.jpg)
+![sparkles](pictures/image043.jpg)
 
 Then compose a new URL by adding "**#secrets/createScope**" (**Attention** to the capital "S"!)
 In my case the URL will be: ("https://eastus2.azuredatabricks.net#secrets/createScope")
 
 The next window will open, this is where we will create references to the secrets present in our Azure Key Vault
 
-![sparkles](image044.png)
+![sparkles](pictures/image044.png)
 
 To do this, we will need the following information from our Azure Key Vault:
 - DNS Name
@@ -298,16 +298,16 @@ To do this, we will need the following information from our Azure Key Vault:
 
 This information can be found in the properties of Azure Key Vault (see screenshot below)
 
-![sparkles](image045.jpg)
+![sparkles](pictures/image045.jpg)
 
 Once the information is found, the creation of a "**Secret Scope**" is as shown below.
 After entering all the required information, click on the "**Create**" button
 
-![sparkles](image046.jpg)
+![sparkles](pictures/image046.jpg)
 
 If all goes well, you must have the following message. Click on the "**OK**" button to validate.
 
-![sparkles](image047.jpg)
+![sparkles](pictures/image047.jpg)
 
 ## Import Databricks's notebook
 
@@ -317,36 +317,36 @@ For the continuation of the article, we will download the notebook which is at t
 
 From your Azure Databricks workspace, navigate to where you want to import the notebook. Click on the down arrow to bring up the context menu and click on "**Import**".
 
-![sparkles](image048.jpg)
+![sparkles](pictures/image048.jpg)
 
 Cochez la case « **File** », indiquez le chemin vers le notebook puis cliquez sur le bouton « **Import** »
 
-![sparkles](image049.jpg)
+![sparkles](pictures/image049.jpg)
 
 If all goes well, the notebook should be in your workspace as shown below
 
-![sparkles](image050.jpg)
+![sparkles](pictures/image050.jpg)
 
 ## Creating access tokens
 We will create the access tokens for Power BI and Azure Data FactoryAt the top right of your workspace, click on the character icon and then on "**User Settings**"
 
-![sparkles](image051.jpg)
+![sparkles](pictures/image051.jpg)
 
 Click on the "**Generate New Token**" button
 
-![sparkles](image052.jpg)
+![sparkles](pictures/image052.jpg)
 
 Give a description to the Token, then indicate its lifetime. Click on the "**Generate**" button.
 
-![sparkles](image053.jpg)
+![sparkles](pictures/image053.jpg)
 
 **WARNING** !! Copy your Token in a reliable place, because after pressing the "**Done**" button, it will no longer be accessible.
 
-![sparkles](image054.jpg)
+![sparkles](pictures/image054.jpg)
 
 **Repeat** to create a Token for Power BI. You must have a result similar to the screenshot below:
 
-![sparkles](image055.png)
+![sparkles](pictures/image055.png)
 
 **Note**: The token for Azure Databricks needs to be added in Azure Key Vault. We will add the secret "**Databricks**"
 
@@ -354,7 +354,7 @@ Give a description to the Token, then indicate its lifetime. Click on the "**Gen
 
 Below is a screenshot after adding the "Databricks" secret in Azure Key Vault:
 
-![sparkles](image056.jpg)
+![sparkles](pictures/image056.jpg)
 
 =============================================================
 
@@ -362,26 +362,26 @@ Below is a screenshot after adding the "Databricks" secret in Azure Key Vault:
 
 We will now develop our data lake to create an area for raw data from Wikipedia, and an area with the result of the analyzes
 
-![sparkles](image057.png)
+![sparkles](pictures/image057.png)
 
 The zone "demo_datasets" will be created manually. The "wikipedia_results" zone will be created automatically by Azure Databricks. In order to interact with Azure Data Lake Gen2, it is necessary to use [Azure Storage Explorer](https://azure.microsoft.com/en-us/features/storage-explorer/). From Azure Storage Explorer, sign in to your Azure account.Find your lake of data, do a right click on it, then create a container "**wikipedia**"
 
-![sparkles](image058.jpg)
+![sparkles](pictures/image058.jpg)
 
 You must obtain a result similar to the screenshot below:
 
-![sparkles](image059.png)
+![sparkles](pictures/image059.png)
 
 **OPTIONAL** (Azure Data Factory can create the folder automatically if it is not already present). In your "wikipedia" container, create the directory "demo_datasets".
 
 Click on the "**New Folder"** button
 
-![sparkles](image060.jpg)
+![sparkles](pictures/image060.jpg)
 
 
 You should obtain the result below:
 
-![sparkles](image061.png)
+![sparkles](pictures/image061.png)
 
 ## Creating the Azure Data Factory pipeline
 
@@ -394,16 +394,16 @@ The pipeline is quite simple for this example and will consist of the sequence o
 
 In the end, we will get a pipeline like the one shown below:
 
-![sparkles](image062.png)
+![sparkles](pictures/image062.png)
 
 
 From the Azure portal, connect to your **Azure Data Factory** service
 
-![sparkles](image063.jpg)
+![sparkles](pictures/image063.jpg)
 
 Click on "Author & Monitor"
 
-![sparkles](image064.jpg)
+![sparkles](pictures/image064.jpg)
 
 ## Creating linked services and datasets
 
@@ -423,50 +423,50 @@ We will start by creating a Linked Service to the "Azure Key Vault" service.
 
 From the authoring interface, click on the pencil on the left, then on "**Connections**"
 
-![sparkles](image065.jpg)
+![sparkles](pictures/image065.jpg)
 
 Click on the "**New**" button
 
-![sparkles](image066.jpg)
+![sparkles](pictures/image066.jpg)
 
 Search and select "**Azure Key Vault**". Click on the "**Continue**" button
 
-![sparkles](image067.jpg)
+![sparkles](pictures/image067.jpg)
 
 Enter information about your Azure Key Vault service. Click on "**Test connection**" then on "**Finish**"
 
-![sparkles](image068.jpg)
+![sparkles](pictures/image068.jpg)
 
 =============================================================
 
 **WARNING** !!! You noticed the "Edit Key vault" message just below the "Azure key vault name" field. It is necessary to add the "Service identity application" in the "Access policies" section of the Azure Key Vault service.
 
-![sparkles](image069.jpg)
+![sparkles](pictures/image069.jpg)
 
 In your Azure Key Vault service, click "**Access policies**" and then the "**Add new**" button to search for the service (with the Service identity application number) and give it access rights.The "**GET**" right for the "**Secret permissions**" field is sufficient
 
-![sparkles](image070_1.jpg)
+![sparkles](pictures/image070_1.jpg)
 
 
 =============================================================
 
 After creating your linked service, you should get a result similar to the one shown below:
 
-![sparkles](image072.png)
+![sparkles](pictures/image072.png)
 
 Click on the "**Publish all**" button
 
-![sparkles](image073.jpg)
+![sparkles](pictures/image073.jpg)
 
 ## Azure Databricks Linked Service
 
 We will repeat the operation to create the Linked Service to Azure Databricks
 
-![sparkles](image074.jpg)
+![sparkles](pictures/image074.jpg)
 
 Fill in the login information for Azure Databricks. Use the secret we created earlier in Azure Key Vault
 
-![sparkles](image075.jpg)
+![sparkles](pictures/image075.jpg)
 
 To illustrate another possibility of creating linked services, we will create the other 2 linked services at the same time as the datasets in the next paragraph.
 
@@ -485,19 +485,19 @@ We will now create 3 "datasets":
 
 Click on the "**+**" sign, then on "**Dataset**"
 
-![sparkles](image076.jpg)
+![sparkles](pictures/image076.jpg)
 
 In the "**New Dataset**" section, look for "**http**", then click on the "**http**" icon and then on the "**Finish**" button
 
-![sparkles](image077.jpg)
+![sparkles](pictures/image077.jpg)
 
 In the "**General**" tab, define a name for your dataset.
 
-![sparkles](image078.jpg)
+![sparkles](pictures/image078.jpg)
 
 Then click on "**Parameters**".Click on the "**New**" button each time to add a parameter
 
-![sparkles](image079.jpg)
+![sparkles](pictures/image079.jpg)
 
 Enter the following parameters in "String" format:
 
@@ -506,23 +506,23 @@ Enter the following parameters in "String" format:
 - DayDS
 - HourDS
 
-![sparkles](image080.png)
+![sparkles](pictures/image080.png)
 
 Click on the "**Connection**" tab
 
-![sparkles](image081.jpg)
+![sparkles](pictures/image081.jpg)
 
 ## Creating the Wikipedia Linked Service 
 
 Here we will see how to create a Linked Service from the creation phase of the dataset. In the "**Connection**" section click on "**New**" to create a linked service to the Wikipedia logs site
 
-![sparkles](image082.jpg)
+![sparkles](pictures/image082.jpg)
 
 Give a name to your linked service. In the field, **base URL**, enter the following URL: https://dumps.wikimedia.org/other/pageviews/.
 
 Click on "**Disable**" and select "**Anonymous**" in the "**Authentication type**" fieldTest your connection and click on the "**Finish**" button
 
-![sparkles](image083.jpg)
+![sparkles](pictures/image083.jpg)
 
 Once the linked service is created, you return to creating your dataset.
 
@@ -530,21 +530,21 @@ Once the linked service is created, you return to creating your dataset.
 
 Click in the field "**Relative URL**" then on "**Add dynamic content**"
 
-![sparkles](image084.jpg)
+![sparkles](pictures/image084.jpg)
 
 Copy the string below into the "**Add Dynamic Content**" field and click on "**Finish**":
 
     @concat(dataset().YearDS,'/',dataset().YearDS,'-',dataset().MonthDS,'/pageviews-',dataset().YearDS,dataset().MonthDS,dataset().DayDS,if(less(int(dataset().HourDS),10),'-0','-'),dataset().HourDS,'0000.gz')
 
-![sparkles](image085.jpg)
+![sparkles](pictures/image085.jpg)
 
 Then check the "**Binary copy**" box
 
-![sparkles](image086.jpg)
+![sparkles](pictures/image086.jpg)
 
 Click on the "**Publish All**" button
 
-![sparkles](image087.jpg)
+![sparkles](pictures/image087.jpg)
 
 ## Creating a Data Lake dataset
 
@@ -552,7 +552,7 @@ Click on the "**Publish All**" button
 
 Now, let's create a second Dataset for our data lake. Repeat the creation procedure as previously seen, then select "**Azure Data Lake Storage Gen2**"
 
-![sparkles](image088.jpg)
+![sparkles](pictures/image088.jpg)
 
 Give a name to this new dataset.
 
@@ -560,7 +560,7 @@ Give a name to this new dataset.
 
 Click on "**Connection**" and then on the "**New**" button to create a linked service to our data lake.
 
-![sparkles](image089.jpg)
+![sparkles](pictures/image089.jpg)
 
 In the "New Linked Service" window, select your storage account from your Azure subscription:
 
@@ -572,7 +572,7 @@ In the "New Linked Service" window, select your storage account from your Azure 
 
 Click on the "**Finish**" button
 
-![sparkles](image090.jpg)
+![sparkles](pictures/image090.jpg)
 
 ### Continuing Data Lake dataset creation
 
@@ -580,7 +580,7 @@ Now that the linked service to our data lake has been created, we will continue 
 
 Check the "**Binary copy**" box
 
-![sparkles](image091.jpg)
+![sparkles](pictures/image091.jpg)
 
 ## Creating a parametrized Data Lake dataset 
 
@@ -593,23 +593,23 @@ We will repeat the following procedure to create a dataset on the same data lake
   
 
 
-![sparkles](image092.jpg)
+![sparkles](pictures/image092.jpg)
 
 Then in the "**Connection**" tab, define the path as shown below by adding the following expression in the "**File**" field:
 
 @concat('pageviews-',dataset().YearDS,dataset().MonthDS,dataset().DayDS,if(less(int(dataset().HourDS),10),'-0','-'),dataset().HourDS,'0000.gz')
 
-![sparkles](image093.jpg)
+![sparkles](pictures/image093.jpg)
 
 At the top of the screen, click on the "**Publish all**" button.
 
-![sparkles](image094.png)
+![sparkles](pictures/image094.png)
 
 ## Pipeline creation
 
 Click on the "**+**" sign and then on "**Pipeline**"
 
-![sparkles](image095.jpg)
+![sparkles](pictures/image095.jpg)
 
 ### Pipeline settings
 
@@ -617,7 +617,7 @@ In order to make our pipeline more agile, we will add parameters, which will all
 
 Click in a free space in the Pipeline Editor, then click on "**Parameters**" then on "**New**" (click 4 times on "New" to add 4 parameters)
 
-![sparkles](image096.jpg)
+![sparkles](pictures/image096.jpg)
 
 Add the following parameters:
 
@@ -630,7 +630,7 @@ Add the following parameters:
 
 In the example, I added some default values for the example (especially in the Array parameter). But these default values are not required.
 
-![sparkles](image097.jpg)
+![sparkles](pictures/image097.jpg)
 
 ### Creation of the "Delete" activity
 
@@ -638,7 +638,7 @@ As this activity does not exist yet in the list of available activities, we will
 
 Click on the "**Code**" button to display the code editor
 
-![sparkles](image098.jpg)
+![sparkles](pictures/image098.jpg)
 
 Copy and paste in the editor the script below. Remember to change the name of the dataset. (In my example it is "**AzureDataLakeStorageFile1**", the data lake dataset without parameters).
 
@@ -674,11 +674,11 @@ Click on the "**Finish**" button
 }
 ```
 
-![sparkles](image099.jpg)
+![sparkles](pictures/image099.jpg)
 
 You should see a new activity in your pipeline:
 
-![sparkles](image100.png)
+![sparkles](pictures/image100.png)
 
 ## "Get Metadata" activity
 
@@ -686,7 +686,7 @@ The screenshot below show how to create the '**Get Metadata**'activity.
 
 Add the "Exists" argument. It will be tested by another activity
 
-![sparkles](image101.jpg)
+![sparkles](pictures/image101.jpg)
 
 ## "If Condition" activity
 
@@ -696,34 +696,34 @@ Drag and drop the "If Condition" activity from the left menu to the pipeline. Ad
 Click on the "**If Condition**" activity. In "**settings**" tab, clic on "**Add dynamic content**"
 
 
-![sparkles](image102.jpg)
+![sparkles](pictures/image102.jpg)
 
 Add the following content:
 
     @activity('Get Metadata1').output.Exists
 
-![sparkles](image103.jpg)
+![sparkles](pictures/image103.jpg)
 
 
 Right click on the "**Delete**" activity and click on "**Copy**"
 
-![sparkles](image104.jpg)
+![sparkles](pictures/image104.jpg)
 
 Click again on the "**If Condition**" activity and then on the "**Activities**" tab.Then click on the "**Add if True Activity**" button
 
-![sparkles](image105.jpg)
+![sparkles](pictures/image105.jpg)
 
 Right click in the central part to copy the activity. Click on "**Paste**"
 
-![sparkles](image106.jpg)
+![sparkles](pictures/image106.jpg)
 
 The "**Delete**" activity is copied to your "**If condition**" activity.
 
-![sparkles](image107.png)
+![sparkles](pictures/image107.png)
 
 Click on the "**Pipeline1**" (or another name if you renamed your pipeline) link to return to the top level of your pipeline.
 
-![sparkles](image108.jpg)
+![sparkles](pictures/image108.jpg)
 
 ## "ForEach" activity
 
@@ -731,11 +731,11 @@ We will now create a loop to download the files corresponding to the number of h
 
 From the list of activities, on the left, drag and drop the activity "**ForEach**" in the editor. Then link the "**Delete**" activity to the "**ForEach**" activity.
 
-![sparkles](image109.jpg)
+![sparkles](pictures/image109.jpg)
 
 Click on the "**ForEach**" activity and then "**Settings**". Click in the "**Items**" field then click on "**Add dynamic content**"
 
-![sparkles](image110.jpg)
+![sparkles](pictures/image110.jpg)
 
 Add the following content:
 
@@ -743,50 +743,50 @@ Add the following content:
 
 Then click on the "**Finish**" button
 
-![sparkles](image111.png)
+![sparkles](pictures/image111.png)
 
 The "**Hours**" parameter is now available in the "**Item**" section of the "**ForEach**" activity. This loop will now be repeated according to the number of hours that will be defined in the "**Hours**" parameter.
 
-![sparkles](image112.jpg)
+![sparkles](pictures/image112.jpg)
 
 Double click on the activity "**ForEach**", to add activities inside the loopAdd the "**Copy Data**" activity in the "**ForEach**" loop
 
-![sparkles](image113.jpg)
+![sparkles](pictures/image113.jpg)
 
 Click on "**Source**" and select the Dataset "**Logs_Wikipedia**". Pass the settings as shown in the screenshot below.
 
 Concerning the hours, parameter comes actually from the activity "**ForEach**".
 
-![sparkles](image114.jpg)
+![sparkles](pictures/image114.jpg)
 
 Click on "**Sink**" tab. In the "**Sink Dataset**" field, choose the data lake dataset with the parameters. 
 
 Then fill in the parameters with the values as shown in the screenshot below.
 
-![sparkles](image115.jpg)
+![sparkles](pictures/image115.jpg)
 
 
 Once the changes are complete, click on the "**Publish All**" button
 
-![sparkles](image116.jpg)
+![sparkles](pictures/image116.jpg)
 
 ## "Notebook" activity
 
 Now we're going to add Databricks's Notebook Activity as shown below
 
-![sparkles](image117.jpg)
+![sparkles](pictures/image117.jpg)
 
 Once the activity has been added, link it on the output of the "**For Each**" activity
 
-![sparkles](image118.jpg)
+![sparkles](pictures/image118.jpg)
 
 Click on the "**Notebook**" activity, then on "**Azure Databricks**". Choose the linked service created previously and click on "**Test connection**":
 
-![sparkles](image119.jpg)
+![sparkles](pictures/image119.jpg)
 
 Then click on "**Settings**" and then on the "**Browse**" button
 
-![sparkles](image120.jpg)
+![sparkles](pictures/image120.jpg)
 
 Then click on "**Base Parameters**" to create the parameters that will be passed to your Azure Databricks Notebook.
 
@@ -798,66 +798,66 @@ Respect the following names. If you want to change the names of the basic parame
 |monthWiki|
 |dayWiki|
 
-![sparkles](image121.jpg)
+![sparkles](pictures/image121.jpg)
 
 Once the settings are complete, click on "Publish All"
 
-![sparkles](image122.jpg)
+![sparkles](pictures/image122.jpg)
 
 Now we will test our pipeline. Click on the "**Debug**" button:
 
-![sparkles](image123.jpg)
+![sparkles](pictures/image123.jpg)
 
 The parameter page opens. Fill in the fields with consistent values and click on the "**Finish**" button:
 
-![sparkles](image124.jpg)
+![sparkles](pictures/image124.jpg)
 
 Execution can be monitored in the "**Output**" part of the pipeline:
 
-![sparkles](image125.jpg)
+![sparkles](pictures/image125.jpg)
 
 On the side of Azure Databricks, the notebook is run via a job
 
-![sparkles](image126.jpg)
+![sparkles](pictures/image126.jpg)
 
 Hopefully on the Azure Data Factory side, your pipeline should show "**Succeeded**" in the "**Status**" column
 
-![sparkles](image127.jpg)
+![sparkles](pictures/image127.jpg)
 
 Power BI
 
 We will now use Power BI Desktop to connect to our SQL Database. At the time of writing this article (17/03/2019), the Power BI connector for Azure Data Lake Gen2 Store is not yet available. From Power BI Desktop, click the "**Get Data**" button, and select "**SQL Server**"
 
-![sparkles](image128.jpg)
+![sparkles](pictures/image128.jpg)
 
 
 Fill in the information from your database server, which can be found on the Azure portal as shown below:
 
-![sparkles](image129.jpg)
+![sparkles](pictures/image129.jpg)
 
 Choose whether you want to import the data or do use **DirectQuery** mode. Then click on the "**Ok**" button.
 
-![sparkles](image130.jpg)
+![sparkles](pictures/image130.jpg)
 
 Choose how you want to connect to your database. In this example, I chose a connection with a "**Database**" account.
 
 Click on the "**Connect**" button
 
-![sparkles](image131.jpg)
+![sparkles](pictures/image131.jpg)
 
 Select the table "**WikipediaLogs**", then click on the "**Load**" button
 
-![sparkles](image132.jpg)
+![sparkles](pictures/image132.jpg)
 
 The fields will appear on the right side of Power BI Desktop.
 
-![sparkles](image133.jpg)
+![sparkles](pictures/image133.jpg)
 
 From now on, you have all the tools to create a nice report on the result of the analyzes of the Wikipedia logs. Here is an example of a report:
 
-![sparkles](image134.png)
+![sparkles](pictures/image134.png)
 
-![sparkles](image135.jpg)
+![sparkles](pictures/image135.jpg)
 
 ## Deploying the solution in another environment
 
@@ -880,15 +880,15 @@ There are still no miracle solutions for creating a functional ARM model from th
 
 If from your resource group you click on "Deployments" you will be able to see the different deployments made within your resource group. By clicking on each of them, you will be able to be inspired to write your model ARM.
 
-![sparkles](image136.jpg)
+![sparkles](pictures/image136.jpg)
 
 Another source of inspiration may be the "**Export Template**" function also available from your resource group. But as indicated by the warning message, not all resources are yet exportable via this function.
 
-![sparkles](image137.jpg)
+![sparkles](pictures/image137.jpg)
 
 To write the ARM model, [Visual Studio Code](https://code.visualstudio.com/) can be an excellent friend especially if we add modules to help write the ARM models. Then just open an empty JSON file and start writing the ARM template.
 
-![sparkles](image138.jpg)
+![sparkles](pictures/image138.jpg)
 
 ARM template samples for this example are available here: https://github.com/franmer2/demowikipedia
 
@@ -900,27 +900,27 @@ For this article, I deploy my ARM model in the same tenant and the same "Service
 
 From the Azure portal, click the "**All services**" button on the left. Then in the search field, enter "**Templates**" then click on "**Templates**"
 
-![sparkles](image139.jpg)
+![sparkles](pictures/image139.jpg)
 
 Click on the "**Add**" button, then "**General**" then give a name and a description to your model. Click on the "**Ok**" button
 
 
-![sparkles](image140.jpg)
+![sparkles](pictures/image140.jpg)
 
 Click on "**ARM Template**". Delete the content already present in the template and copy / paste from the Visual Studio code into the ARM template edit window. Click on the "**Ok**" button.
 
 
-![sparkles](image141.jpg)
+![sparkles](pictures/image141.jpg)
 
 Click on the "**Add**" button
 
 
-![sparkles](image142.jpg)
+![sparkles](pictures/image142.jpg)
 
 
 We will now use this model to deploy our solution.Click on your model then on the button "**Deploy**"
 
-![sparkles](image143.jpg)
+![sparkles](pictures/image143.jpg)
 
 Fill out the deployment form.
 
@@ -930,11 +930,11 @@ As a reminder, the "**objectID**" and other information can be found from the Az
 
 Click on the "**Azure Active Directory**" icon, then "**App registrations (preview)**".Search for your application:
 
-![sparkles](image144.jpg)
+![sparkles](pictures/image144.jpg)
 
 Information are available in "**Overview**"
 
-![sparkles](image145.jpg)
+![sparkles](pictures/image145.jpg)
 
 ======================================================
 
@@ -944,13 +944,13 @@ In the last line of the form, to find your **objectID**, you can use the "**Clou
 
 Then accept the terms and click on the "**Purchase**" button.
 
-![sparkles](image146.jpg)
+![sparkles](pictures/image146.jpg)
 
 
 After only a few minutes, you will get a new resource group with all the necessary services for your data analytics solution
 
 
-![sparkles](image147.png)
+![sparkles](pictures/image147.png)
 
 ### Using the Cloud Shell and Azure CLI
 
@@ -981,7 +981,7 @@ Another way to deploy ARM models is to use Azure CLI. Below is an example of dep
 
 To illustrate the script above, here is a screenshot with an example of used values:
 
-![sparkles](image148.jpg)
+![sparkles](pictures/image148.jpg)
 
 
 ## Manual actions to add configurations not yet supported by ARM models
@@ -1005,11 +1005,11 @@ https://feedback.azure.com/forums/909463-azure-databricks/suggestions/35257819-e
 
 We will manually add an access token to the new Azure Databricks workspace. I'm not going to redo the entire procedure, since I've seen it earlier in this article. Below are just a few screenshots of the main steps:
 
-![sparkles](image149.jpg)
+![sparkles](pictures/image149.jpg)
 
 Then click on "**Generate New Token**". Remember to copy the new token.
 
-![sparkles](image150.jpg)
+![sparkles](pictures/image150.jpg)
 
 We will now create a new "**scope**" following the same steps as in the beginning of the article.
 
@@ -1021,15 +1021,15 @@ Modify the url of your Azure Databricks workspace by adding:
  
  The following window may appear. Then choose the new workspace:
 
- ![sparkles](image151.jpg)
+ ![sparkles](pictures/image151.jpg)
 
  Create your new scope. Name it "**Trust**" if you do not want to change the notebook.
 
- ![sparkles](image152.png)
+ ![sparkles](pictures/image152.png)
 
  Azure Key Vault information can be retrieved from the Azure portal as shown below
 
- ![sparkles](image153.jpg)
+ ![sparkles](pictures/image153.jpg)
 
  ### Databricks: adding the notebook
  
@@ -1037,11 +1037,11 @@ Modify the url of your Azure Databricks workspace by adding:
  
  Create a folder in your workspace and import the notebook
 
-![sparkles](image154.jpg)
+![sparkles](pictures/image154.jpg)
 
 Then modify the notebook with the information of the new environment, wherever it is mentioned, as shown below
 
-![sparkles](image155.jpg)
+![sparkles](pictures/image155.jpg)
 
 
 ### Configuring Azure Key Vault
@@ -1051,27 +1051,27 @@ Now add the main service of Azure Data Factory. Click "**Select Principal**," an
 
 Then set the permissions for the secret. The "**Get**" permission will be sufficient in our case. Click on the "**Ok**" button.
 
-![sparkles](image156.jpg)
+![sparkles](pictures/image156.jpg)
 
 Click on the "**Save**" button
 
-![sparkles](image157.jpg)
+![sparkles](pictures/image157.jpg)
 
 ### Adding the Databricks token
 
 We will add the previously created Azure Databricks token in our newly deployed Azure Key Vault. From the Azure portal, in your "**Azure Key Vault**" service, click "**Secret**", "**Generate / Import**", then add the "**Databricks**" secret with the token created in the Azure Databricks workspace
 
-![sparkles](image158.jpg)
+![sparkles](pictures/image158.jpg)
 
 ### Adding the Service Principal at the storage account level
 
 In your storage account, add your "Service Principal" account with the role "**Storage Blob Data Contributor**"
 
-![sparkles](image159.jpg)
+![sparkles](pictures/image159.jpg)
 
 For the moment (April 2019), it is not possible to create a container in a Data Lake Gen2 type account with the ARM models. It is therefore necessary to do it manually. It can be done for example via "Azure Storage Explorer" or the Azure portal. Below is an illustration with the Azure portal.
 
-![sparkles](image160.jpg)
+![sparkles](pictures/image160.jpg)
 
 ## Creating an ARM Model to Deploy the Azure Data Factory Pipeline in the New Environment
 
@@ -1079,12 +1079,12 @@ For the moment (April 2019), it is not possible to create a container in a Data 
 
 From your original environment, return to your Azure Data Factory with your transformation pipeline. In the top menu bar, click on "**ARM Template**" and then on "**Export ARM Template**".
 
-![sparkles](image161.jpg)
+![sparkles](pictures/image161.jpg)
 
 Then save the package in an easily accessible place
 
 
-![sparkles](image162.png)
+![sparkles](pictures/image162.png)
 
 ### Modify your ARM model
 
@@ -1105,15 +1105,15 @@ or on my github : https://github.com/franmer2/demowikipedia
  
 In the same way as for the first ARM model, save your model on the Azure portal in the "**Template**" section
 
-![sparkles](image163.jpg)
+![sparkles](pictures/image163.jpg)
 
 Then deploy it from the portal in your new environment
 
-![sparkles](image164.jpg)
+![sparkles](pictures/image164.jpg)
 
 Fill out the deployment form. "**Factory Name**" is the name of the Azure Data Factory service that you just deployed through the ARM model. Accept the terms and click on the "**Purchase**" button:
 
-![sparkles](image165.png)
+![sparkles](pictures/image165.png)
 
 ### With Bash and AzureCLI
 
@@ -1136,45 +1136,45 @@ Use the script below in the Azure Cloud Shell
 
 Below an example with a screenshot
 
-![sparkles](image166.jpg)
+![sparkles](pictures/image166.jpg)
 
 ### Deployment result
 
 After a few seconds, your pipeline is deployed in your new environment
 
-![sparkles](image167.jpg)
+![sparkles](pictures/image167.jpg)
 
 ### Manual action after pipeline deployment
 
 After deploying the pipeline, click on the "**Notebook**" activity to redefine the path of your notebook in your Azure Databricks workspace.
 
-![sparkles](image168.jpg)
+![sparkles](pictures/image168.jpg)
 
 Then click on the "**Publish All**" button.
 
 Test the pipeline by clicking "**validate**" and enter your parameters. Normally, everything should be fine
 
-![sparkles](image169.jpg)
+![sparkles](pictures/image169.jpg)
 
 ## Verification in the SQL Database
 
 Log in to your SQL Database located in the new environment. Click on "**Query editor**", then query your database to check the presence of the data in your table after running the Azure Data Factory pipeline:
 
-![sparkles](image170.jpg)
+![sparkles](pictures/image170.jpg)
 
 ## Editing the Power BI Report
 
 If you use the Power BI file available on the [GitHub](https://github.com/franmer2/demowikipedia), you need to modify the connection string to retrieve the data directly from your SQL Database.Click on "**Edit Queries**" and then on "**Data Source Settings**":
 
-![sparkles](image171.jpg)
+![sparkles](pictures/image171.jpg)
 
 Then click on the "**Change Source"** button to indicate the connection information of your SQL Database:
 
-![sparkles](image172.jpg)
+![sparkles](pictures/image172.jpg)
 
 Then refresh the report data
 
-![sparkles](image173.jpg)
+![sparkles](pictures/image173.jpg)
 
 ## By the way, what is the relationship with the title of the article??!!
 
@@ -1185,7 +1185,7 @@ I remember that, from the first days I did this demo, the article about Darth Va
 
 
 
-![sparkles](image174.jpg)
+![sparkles](pictures/image174.jpg)
 
 ## Sources
 https://www.tamr.com/from-devops-to-dataops-by-andy-palmer/
