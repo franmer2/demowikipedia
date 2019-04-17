@@ -981,7 +981,7 @@ Another way to deploy ARM models is to use Azure CLI. Below is an example of dep
     SQLadministratorLoginPassword='<Your SQL Administrator Password>' \
     SQLserverName='<Your SQL Server Name>' \
     SQLdatabaseName='<Your SQL Database Name>' \
-    vaults_Trust_name='<Your Azure Key Vault Name> \
+    vaults_Trust_name='<Your Azure Key Vault Name>' \
     objectId='<Your Application Object ID>' \
     application-id_secretValue='<Your Application (client) ID>' \
     authentication-id_secretValue='<Your Application (client) Secret>' \
