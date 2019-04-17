@@ -1049,6 +1049,8 @@ Modify the url of your Azure Databricks workspace by adding:
 
 Then modify the notebook with the information of the new environment, wherever it is mentioned, as shown below
 
+![sparkles](pictures/image190.png)
+
 ![sparkles](pictures/image155.jpg)
 
 
