@@ -1141,8 +1141,7 @@ Use the script below in the Azure Cloud Shell
     --parameters AzureDataLakeStorageGen2_properties_typeProperties_servicePrincipalId='<Your Service Principal ID>' \
     factoryName='<YOUR AZURE DATA FACTORY NAME>' \
     AzureKeyVault_Name='<YOUR AZURE KEY VAULT NAME>' \
-    AzureDataLakeStorageGen2_Name='<YOUR AZURE STORAGE NAME>' \
-    AzureDataLakeStorageGen2_properties_typeProperties_servicePrincipalId='<Your Service Principal ID>'
+    AzureDataLakeStorageGen2_Name='<YOUR AZURE STORAGE NAME>'
 
 Below an example with a screenshot
 
