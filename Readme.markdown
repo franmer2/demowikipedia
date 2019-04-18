@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this article, we'll see how to deploy a complete data analytics solution in Azure. We will initially build the solution with several Azure services. Then we will set up a transformation pipeline, with parametrized processes, to automate data movements and transformations. Finally, we will see how to deploy our solution in another environment.(French version available [here](https://franmerms.wordpress.com/2019/04/18/pourquoi-darth-vader-termine-toujours-dans-le-top-50-des-articles-wikipedia-les-plus-consultes/))
+In this article, we'll see how to deploy a complete data analytics solution in Azure. We will initially build the solution with several Azure services. Then we will set up a transformation pipeline, with parametrized processes, to automate data movements and transformations. Finally, we will see how to deploy our solution in another environment. (French version available [here](https://franmerms.wordpress.com/2019/04/18/pourquoi-darth-vader-termine-toujours-dans-le-top-50-des-articles-wikipedia-les-plus-consultes/))
 
 I will go through the topic of DataOps quickly, and present how the Azure services of our data platform can help implement some of the principles of DataOps.
 
