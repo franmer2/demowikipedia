@@ -1162,9 +1162,13 @@ After deploying the pipeline, click on the "**Notebook**" activity to redefine t
 
 Then click on the "**Publish All**" button.
 
-Test the pipeline by clicking "**validate**" and enter your parameters. Normally, everything should be fine
+Test the pipeline by clicking "**validate**" and enter your parameters. Normally, everything should be fine. In case your get an error with 
 
 ![sparkles](pictures/image169.jpg)
+
+In the case your get an error with the Notebook activity, double check if you have enought quota in your Azure subscription. You can also modify the Databricks connection in Azure Data Factory to size down the cluster. (For a reason I can't explain, sometime i have to click on "Access token"and click back to "Azure Key vault" to have values in the drop down lists)
+
+![sparkles](pictures/image191.png)
 
 ## Verification in the SQL Database
 
