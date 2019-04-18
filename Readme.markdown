@@ -311,7 +311,8 @@ If all goes well, you must have the following message. Click on the "**OK**" but
 
 ## Import Databricks's notebook
 
-For the continuation of the article, we will download the notebook which is at the following address: https://1drv.ms/u/s!Am-C-ktMH9lgg9MCqqG5dS8XKFKxDA or https://github.com/franmer2/demowikipedia
+For the continuation of the article, we will download the notebook which is at the following address: https://1drv.ms/u/s!Am-C-ktMH9lgg9MCqqG5dS8XKFKxDA or https://github.com/franmer2/demowikipedia/tree/master/resources
+
 
 **You will then have to modify the notebook to add your information concerning the application ID, the "data lake" as well as your SQL Database.**
 
@@ -1136,7 +1137,7 @@ Use the script below in the Azure Cloud Shell
 
     az group deployment create -g $resourceGroup -n $ADFdeploymentName \
     --template-uri 'https://raw.githubusercontent.com/franmer2/demowikipedia/master/resources/2_Wikipedia_ADF_ARM_template.json' \
-    --parameters 'https://github.com/franmer2/demowikipedia/blob/master/resources/2_Wikipedia_ADF_ARM_template.parameters.json' \
+    --parameters 'https://raw.githubusercontent.com/franmer2/demowikipedia/master/resources/2_Wikipedia_ADF_ARM_template.parameters.json' \
     --parameters AzureDataLakeStorageGen2_properties_typeProperties_servicePrincipalId='<Your Service Principal ID>' \
     factoryName='<YOUR AZURE DATA FACTORY NAME>' \
     AzureKeyVault_Name='<YOUR AZURE KEY VAULT NAME>' \
