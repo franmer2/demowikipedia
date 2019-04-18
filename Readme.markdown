@@ -961,7 +961,7 @@ After only a few minutes, you will get a new resource group with all the necessa
 
 ![sparkles](pictures/image147.png)
 
-### Using the Cloud Shell and Azure CLI
+## Using the Cloud Shell and Azure CLI
 
 Another way to deploy ARM models is to use Azure CLI. Below is an example of deployment with the following script
 
