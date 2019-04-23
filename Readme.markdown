@@ -403,7 +403,9 @@ From the Azure portal, connect to your **Azure Data Factory** service
 
 ![sparkles](pictures/image063.jpg)
 
-Click on "Author & Monitor"
+Click on **"Author & Monitor"**
+
+(If you use MSDN subscription and facing infinite white screen, try to open your browser in private mode)
 
 ![sparkles](pictures/image064.jpg)
 
