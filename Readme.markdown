@@ -321,7 +321,7 @@ From your Azure Databricks workspace, navigate to where you want to import the n
 
 ![sparkles](pictures/image048.jpg)
 
-Check the ** "File" ** box, enter the path to the notebook and click on the **"Import"** button
+Check the **"File"** box, enter the path to the notebook and click on the **"Import"** button
 
 ![sparkles](pictures/image049.jpg)
 
