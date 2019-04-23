@@ -179,6 +179,7 @@ If you have placed all your resources in the same resource group, you must obtai
 
 ![sparkles](pictures/image025.png)
 
+
 ##Creation of an application and a service principal
 
 In this section of the article, we will create the security elements that allow Azure Databricks to access our Data Lake gen2. The general procedure can be found [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal).
