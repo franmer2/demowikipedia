@@ -1,7 +1,5 @@
 # Why Darth Vader still finishes in the top 50 most consulted Wikipedia articles?
 
-<iframe width="800" height="600" src="https://msit.powerbi.com/view?r=eyJrIjoiYjQ4NTA1YjgtZTcyOC00NTZlLWJiMmQtNmNkZTBlNWJiZjJhIiwidCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0NyIsImMiOjV9" frameborder="0" allowFullScreen="true"></iframe>
-
 
 
 ## Introduction
