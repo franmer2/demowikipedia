@@ -1,5 +1,9 @@
 # Why Darth Vader still finishes in the top 50 most consulted Wikipedia articles?
 
+<iframe width="800" height="600" src="https://msit.powerbi.com/view?r=eyJrIjoiYjQ4NTA1YjgtZTcyOC00NTZlLWJiMmQtNmNkZTBlNWJiZjJhIiwidCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0NyIsImMiOjV9" frameborder="0" allowFullScreen="true"></iframe>
+
+
+
 ## Introduction
 
 In this article, we'll see how to deploy a complete data analytics solution in Azure. We will initially build the solution with several Azure services. Then we will set up a transformation pipeline, with parametrized processes, to automate data movements and transformations. Finally, we will see how to deploy our solution in another environment. (French version available [here](https://franmerms.wordpress.com/2019/04/18/pourquoi-darth-vader-termine-toujours-dans-le-top-50-des-articles-wikipedia-les-plus-consultes/))
